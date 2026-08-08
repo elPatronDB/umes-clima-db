@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Consulta de Clima</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Selector de País -->
+  <ion-item>
+    <ion-select placeholder="Selecciona un país" (ionChange)="consultar($event)">
+      <ion-select-option *ngFor="let p of paises" [value]="p">
+        {{ p.nombre }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Indicador de Carga -->
+  <div *ngIf="cargando" style="text-align: center; margin-top: 20px;">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Consultando...</p>
+  </div>
+
+  <!-- Mensaje de Error -->
+  <ion-text color="danger" *ngIf="errorMsg">
+    <p>{{ errorMsg }}</p>
+    <ion-button routerLink="/home">Regresar al inicio</ion-button>
+  </ion-text>
+
+  <!-- Componente de Detalle -->
+  <app-detail-clima 
+    *ngIf="datosDelClima && !cargando"
+    [climaData]="datosDelClima" 
+    [pais]="paisSeleccionado.nombre"
+    [capital]="paisSeleccionado.capital">
+  </app-detail-clima>
+</ion-content>

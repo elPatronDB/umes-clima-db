@@ -1,0 +1,16 @@
+<ion-card *ngIf="climaData && climaData.current">
+  <ion-card-header>
+    <ion-card-subtitle>{{ pais }}</ion-card-subtitle>
+    <ion-card-title>{{ capital }}</ion-card-title>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <p><strong>Condición meteorológica:</strong> {{ climaData.current.weather_code }}</p>
+    <p><strong>Temperatura:</strong> {{ climaData.current.temperature_2m }} °C</p>
+    <p><strong>Sensación térmica:</strong> {{ climaData.current.apparent_temperature }} °C</p>
+    <p><strong>Humedad:</strong> {{ climaData.current.relative_humidity_2m }} %</p>
+    <p><strong>Velocidad del viento:</strong> {{ climaData.current.wind_speed_10m }} km/h</p>
+    
+    <p><strong>Fecha y hora de la medición:</strong> <br> {{ climaData.current.time | date:'medium' }}</p>
+  </ion-card-content>
+</ion-card>
