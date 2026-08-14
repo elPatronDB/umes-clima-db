@@ -12,8 +12,4 @@ export class OpenMeteoService {
     return this.http.get(url);
   }
 
-  buscarUbicacion(nombre: string) {
-    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(nombre)}&count=10&language=es&format=json`;
-    return this.http.get(url);
-  }
 }

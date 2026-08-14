@@ -35,3 +35,31 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+:root {
+  --ion-font-family: 'Outfit', sans-serif;
+  
+  /* Black background theme */
+  --ion-background-color: #000000;
+  --ion-text-color: #ffffff;
+  --ion-background-color-step-50: #0d0d0d;
+  --ion-background-color-step-100: #1a1a1a;
+  --ion-background-color-step-150: #262626;
+  
+  /* Purple Button / Primary Color */
+  --ion-color-primary: #9b4dff;
+  --ion-color-primary-rgb: 155, 77, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-shade: #8844e0;
+  --ion-color-primary-tint: #a55eff;
+
+  /* Card and Item styles */
+  --ion-item-background: #111111;
+  --ion-card-background: #111111;
+}
+
+body {
+  font-family: var(--ion-font-family);
+  background-color: var(--ion-background-color);
+}

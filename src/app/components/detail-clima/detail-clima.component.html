@@ -1,11 +1,18 @@
-<ion-card *ngIf="climaData && climaData.current">
-  <ion-card-header>
-    <ion-card-subtitle>{{ pais }}</ion-card-subtitle>
-    <ion-card-title>{{ capital }}</ion-card-title>
+<ion-card *ngIf="climaData && climaData.current" class="premium-card">
+  <ion-card-header class="card-header-premium">
+    <div class="header-content">
+      <div class="title-container">
+        <ion-card-subtitle>{{ pais }}</ion-card-subtitle>
+        <ion-card-title>{{ capital }}</ion-card-title>
+      </div>
+      <div class="flag-container" *ngIf="banderaUrl">
+        <img [src]="banderaUrl" [alt]="'Bandera de ' + pais" class="country-flag" />
+      </div>
+    </div>
   </ion-card-header>
   
   <ion-card-content>
-    <p><strong>Condición meteorológica:</strong> {{ climaData.current.weather_code }}</p>
+    <p><strong>Condición meteorológica:</strong> {{ getWeatherDescription(climaData.current.weather_code) }}</p>
     <p><strong>Temperatura:</strong> {{ climaData.current.temperature_2m }} °C</p>
     <p><strong>Sensación térmica:</strong> {{ climaData.current.apparent_temperature }} °C</p>
     <p><strong>Humedad:</strong> {{ climaData.current.relative_humidity_2m }} %</p>

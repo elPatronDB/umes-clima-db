@@ -8,32 +8,46 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Selector de País -->
-  <ion-item>
-    <ion-select placeholder="Selecciona un país" (ionChange)="consultar($event)">
-      <ion-select-option *ngFor="let p of paises" [value]="p">
-        {{ p.nombre }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <!-- Indicador de Carga -->
-  <div *ngIf="cargando" style="text-align: center; margin-top: 20px;">
-    <ion-spinner name="crescent"></ion-spinner>
-    <p>Consultando...</p>
+  <!-- Spinner for loading countries -->
+  <div *ngIf="cargandoPaises" style="text-align: center; margin-top: 50px;">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Obteniendo países del mundo...</p>
   </div>
 
-  <!-- Mensaje de Error -->
-  <ion-text color="danger" *ngIf="errorMsg">
-    <p>{{ errorMsg }}</p>
-    <ion-button routerLink="/home">Regresar al inicio</ion-button>
-  </ion-text>
+  <ng-container *ngIf="!cargandoPaises">
+    <!-- Selector de País -->
+    <ion-item class="selector-item" lines="none" style="border-radius: 8px; background: var(--ion-item-background); margin-bottom: 20px;">
+      <ion-select placeholder="Selecciona un país" (ionChange)="consultar($event)" interface="action-sheet" style="width: 100%;">
+        <ng-container *ngFor="let continente of continentes">
+          <ion-select-option [disabled]="true" class="group-header">── {{ continente.nombre }} ──</ion-select-option>
+          <ion-select-option *ngFor="let p of continente.paises" [value]="p">
+            {{ p.banderaEmoji }} {{ p.nombre }}
+          </ion-select-option>
+        </ng-container>
+      </ion-select>
+    </ion-item>
 
-  <!-- Componente de Detalle -->
-  <app-detail-clima 
-    *ngIf="datosDelClima && !cargando"
-    [climaData]="datosDelClima" 
-    [pais]="paisSeleccionado.nombre"
-    [capital]="paisSeleccionado.capital">
-  </app-detail-clima>
+    <!-- Indicador de Carga -->
+    <div *ngIf="cargando" style="text-align: center; margin-top: 20px;">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Consultando clima...</p>
+    </div>
+
+    <!-- Mensaje de Error -->
+    <ion-text color="danger" *ngIf="errorMsg">
+      <p style="text-align: center;">{{ errorMsg }}</p>
+      <div style="text-align: center;">
+        <ion-button routerLink="/home" color="primary">Regresar al inicio</ion-button>
+      </div>
+    </ion-text>
+
+    <!-- Componente de Detalle -->
+    <app-detail-clima 
+      *ngIf="datosDelClima && !cargando && paisSeleccionado"
+      [climaData]="datosDelClima" 
+      [pais]="paisSeleccionado.nombre"
+      [capital]="paisSeleccionado.capital"
+      [banderaUrl]="paisSeleccionado.banderaUrl">
+    </app-detail-clima>
+  </ng-container>
 </ion-content>

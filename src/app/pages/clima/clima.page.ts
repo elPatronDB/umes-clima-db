@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import {
   IonSelectOption, IonSpinner, IonText, IonButton
 } from '@ionic/angular/standalone';
 import { OpenMeteoService } from 'src/app/services/open-meteo';
+import { RestCountriesService, PaisData } from 'src/app/services/rest-countries.service';
 import { DetailClimaComponent } from 'src/app/components/detail-clima/detail-clima.component';
 
 @Component({
@@ -22,24 +23,49 @@ import { DetailClimaComponent } from 'src/app/components/detail-clima/detail-cli
     CommonModule, FormsModule, RouterLink, DetailClimaComponent
   ]
 })
-export class ClimaPage {
-  paises = [
-    { nombre: "El Salvador", latitud: 13.79, longitud: -88.93, capital: "San Salvador" },
-    { nombre: "Guatemala", latitud: 14.64, longitud: -90.51, capital: "Ciudad de Guatemala" },
-    { nombre: "Honduras", latitud: 14.08, longitud: -87.21, capital: "Tegucigalpa" },
-    { nombre: "Nicaragua", latitud: 12.13, longitud: -86.25, capital: "Managua" },
-    { nombre: "Costa Rica", latitud: 9.93, longitud: -84.08, capital: "San José" },
-    { nombre: "Panamá", latitud: 8.98, longitud: -79.52, capital: "Ciudad de Panamá" },
-    { nombre: "México", latitud: 19.43, longitud: -99.13, capital: "Ciudad de México" },
-    { nombre: "Colombia", latitud: 4.61, longitud: -74.08, capital: "Bogotá" },
-    { nombre: "Argentina", latitud: -34.61, longitud: -58.38, capital: "Buenos Aires" },
-  ];
-  paisSeleccionado: any;
+export class ClimaPage implements OnInit {
+  continentes: { nombre: string, paises: PaisData[] }[] = [];
+  paisSeleccionado: PaisData | null = null;
   cargando: boolean = false;
+  cargandoPaises: boolean = true;
   errorMsg: string = '';
   datosDelClima: any;
 
-  constructor(private climaService: OpenMeteoService) { }
+  constructor(
+    private climaService: OpenMeteoService,
+    private restCountries: RestCountriesService
+  ) { }
+
+  ngOnInit() {
+    this.cargandoPaises = true;
+    this.restCountries.getPaises().subscribe({
+      next: (paises) => {
+        // Agrupar por región
+        const grupos: { [key: string]: PaisData[] } = {};
+        paises.forEach(p => {
+          if (!grupos[p.region]) {
+            grupos[p.region] = [];
+          }
+          grupos[p.region].push(p);
+        });
+
+        // Convertir a array de continentes y ordenar
+        this.continentes = Object.keys(grupos).map(region => {
+          return {
+            nombre: region,
+            // Ordenar países alfabéticamente
+            paises: grupos[region].sort((a, b) => a.nombre.localeCompare(b.nombre))
+          };
+        }).sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+        this.cargandoPaises = false;
+      },
+      error: (err) => {
+        this.errorMsg = 'Error al cargar la lista de países';
+        this.cargandoPaises = false;
+      }
+    });
+  }
 
   consultar(evento: any) {
     this.paisSeleccionado = evento.detail.value;
@@ -47,7 +73,7 @@ export class ClimaPage {
     this.errorMsg = '';
     this.datosDelClima = null;
 
-    this.climaService.getClima(this.paisSeleccionado.latitud, this.paisSeleccionado.longitud).subscribe({
+    this.climaService.getClima(this.paisSeleccionado!.latitud, this.paisSeleccionado!.longitud).subscribe({
       next: (datos) => {
         this.datosDelClima = datos;
         this.cargando = false;
