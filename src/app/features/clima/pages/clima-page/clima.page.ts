@@ -7,9 +7,9 @@ import {
   IonButtons, IonBackButton, IonItem, IonSelect,
   IonSelectOption, IonSpinner, IonText, IonButton
 } from '@ionic/angular/standalone';
-import { OpenMeteoService } from 'src/app/services/open-meteo';
-import { RestCountriesService, PaisData } from 'src/app/services/rest-countries.service';
-import { DetailClimaComponent } from 'src/app/components/detail-clima/detail-clima.component';
+import { OpenMeteoService } from 'src/app/core/services/open-meteo';
+import { RestCountriesService, PaisData } from 'src/app/core/services/rest-countries.service';
+import { DetailClimaComponent } from 'src/app/shared/components/detail-clima/detail-clima.component';
 
 @Component({
   selector: 'app-clima',

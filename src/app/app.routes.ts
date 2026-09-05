@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    loadComponent: () => import('./features/clima/pages/home/home.page').then((m) => m.HomePage),
   },
   {
     path: '',
@@ -12,10 +12,10 @@ export const routes: Routes = [
   },
   {
     path: 'clima',
-    loadComponent: () => import('./pages/clima/clima.page').then( m => m.ClimaPage)
+    loadComponent: () => import('./features/clima/pages/clima-page/clima.page').then( m => m.ClimaPage)
   },
   {
     path: 'cima-fotografia-page',
-    loadComponent: () => import('./pages/ClimaFotografiaPage/cima-fotografia-page/cima-fotografia-page.page').then( m => m.CimaFotografiaPagePage)
+    loadComponent: () => import('./features/clima/pages/clima-fotografia-page/cima-fotografia-page.page').then( m => m.CimaFotografiaPagePage)
   },
 ];
