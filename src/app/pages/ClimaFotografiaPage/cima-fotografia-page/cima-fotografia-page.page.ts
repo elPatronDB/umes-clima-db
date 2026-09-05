@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonRadio, IonRadioGroup, IonText, IonItem, IonList, IonTextarea } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonRadio, IonRadioGroup, IonText, IonItem, IonTextarea, IonFab, IonFabButton, IonIcon } from '@ionic/angular/standalone';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
@@ -9,7 +9,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   templateUrl: './cima-fotografia-page.page.html',
   styleUrls: ['./cima-fotografia-page.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonRadio, IonRadioGroup, IonText, IonItem, IonList, IonTextarea]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonRadio, IonRadioGroup, IonText, IonItem, IonTextarea, IonFab, IonFabButton, IonIcon]
 })
 export class CimaFotografiaPagePage implements OnInit {
 
