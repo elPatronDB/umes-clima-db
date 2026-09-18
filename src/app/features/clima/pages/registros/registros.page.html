@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registros Climáticos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="registros.length === 0" class="ion-text-center ion-margin-top">
+    <ion-text color="medium">
+      <h3>No hay registros guardados.</h3>
+      <p>Ve a la página principal para realizar una consulta del clima.</p>
+    </ion-text>
+    <ion-button routerLink="/home" expand="block" class="ion-margin-top">
+      Ir a Consultar
+    </ion-button>
+  </div>
+
+  <ion-card *ngFor="let reg of registros">
+    <ion-card-header>
+      <ion-card-title>Registro</ion-card-title>
+      <p class="ion-no-margin"><small>{{ reg.fechaHora | date:'medium' }}</small></p>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Latitud:</strong> {{ reg.latitud }}</p>
+      <p><strong>Longitud:</strong> {{ reg.longitud }}</p>
+      <p><strong>Temperatura:</strong> {{ reg.temperatura }} °C</p>
+      <p><strong>Sensación Térmica:</strong> {{ reg.sensacionTermica }} °C</p>
+      <p><strong>Humedad:</strong> {{ reg.humedad }}%</p>
+      <p><strong>Viento:</strong> {{ reg.velocidadViento }} km/h</p>
+
+      <div *ngIf="reg.foto" class="ion-margin-top ion-text-center">
+        <p><strong>Fotografía:</strong></p>
+        <img [src]="reg.foto" alt="Foto del clima" style="max-height: 200px; border-radius: 8px;"/>
+      </div>
+
+      <ion-button expand="block" fill="outline" class="ion-margin-top" (click)="tomarFotografia(reg)">
+        {{ reg.foto ? 'Reemplazar Fotografía' : 'Agregar Fotografía' }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

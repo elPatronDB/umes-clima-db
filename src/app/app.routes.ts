@@ -11,11 +11,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'clima',
-    loadComponent: () => import('./features/clima/pages/clima-page/clima.page').then( m => m.ClimaPage)
-  },
-  {
-    path: 'cima-fotografia-page',
-    loadComponent: () => import('./features/clima/pages/clima-fotografia-page/cima-fotografia-page.page').then( m => m.CimaFotografiaPagePage)
+    path: 'registros',
+    loadComponent: () => import('./features/clima/pages/registros/registros.page').then( m => m.RegistrosPage)
   },
 ];

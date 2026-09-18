@@ -1,19 +1,34 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>UMES - MOVIL 2</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>UMES Clima v3</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div id="container">
-    <h2>UMES - MOVIL</h2>
-    <ion-button routerLink="/clima">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Bienvenido a UMES Clima</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Esta aplicación consulta automáticamente el clima actual utilizando tu ubicación GPS. También te permite guardar los registros y tomar fotografías asociadas a ellos.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-button expand="block" (click)="consultarClima()" [disabled]="isLoading">
       Consultar clima
     </ion-button>
-    <ion-button routerLink="/cima-fotografia-page">
-      Registrar fotografía
-    </ion-button>
+    <br>
+    <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+    <p *ngIf="isLoading">Obteniendo ubicación y clima...</p>
   </div>
+
+  <ion-card class="ion-margin-top">
+    <ion-card-content class="ion-text-center">
+      <h2>Total de registros: <strong>{{ totalRegistros }}</strong></h2>
+      <ion-button fill="outline" expand="block" (click)="irARegistros()" class="ion-margin-top">
+        Registros guardados
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
-
-
