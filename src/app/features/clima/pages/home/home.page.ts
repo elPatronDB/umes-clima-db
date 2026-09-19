@@ -36,18 +36,14 @@ export class HomePage implements OnInit {
   async consultarClima() {
     this.isLoading = true;
     try {
-      // 1. Request permissions
       const permStatus = await Geolocation.requestPermissions();
       if (permStatus.location !== 'granted' && permStatus.coarseLocation !== 'granted') {
         throw new Error('Permiso de ubicación denegado');
       }
-
-      // 2. Get coordinates
       const position = await Geolocation.getCurrentPosition();
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
 
-      // 3. Consult weather
       this.climaService.getClima(lat, lng).subscribe({
         next: async (data: any) => {
           this.isLoading = false;
@@ -77,12 +73,12 @@ export class HomePage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Resultado del Clima',
       message: `
-        <strong>Latitud:</strong> ${lat}<br>
-        <strong>Longitud:</strong> ${lng}<br>
-        <strong>Temperatura actual:</strong> ${temp} °C<br>
-        <strong>Sensación térmica:</strong> ${sensacion} °C<br>
-        <strong>Humedad:</strong> ${humedad}%<br>
-        <strong>Velocidad del viento:</strong> ${viento} km/h
+        Latitud: ${lat}<br>
+        Longitud: ${lng}<br>
+        Temperatura actual: ${temp} °C<br>
+        Sensación térmica: ${sensacion} °C<br>
+        Humedad: ${humedad}%<br>
+        Velocidad del viento: ${viento} km/h
       `,
       buttons: [
         {
@@ -121,6 +117,6 @@ export class HomePage implements OnInit {
   }
 
   private generarId(): string {
-    return Math.random().toString(36).substring(2, 9); // Simple id generator
+    return Math.random().toString(36).substring(2, 9);
   }
 }

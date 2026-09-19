@@ -7,10 +7,10 @@
 <ion-content class="ion-padding">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Bienvenido a UMES Clima</ion-card-title>
+      <ion-card-title>UMES Clima v3.0</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Esta aplicación consulta automáticamente el clima actual utilizando tu ubicación GPS. También te permite guardar los registros y tomar fotografías asociadas a ellos.</p>
+      <p>Aplicación para consultar el clima actual la cual permite guardar registros y tomar fotografías del clima.</p>
     </ion-card-content>
   </ion-card>
 
@@ -20,14 +20,14 @@
     </ion-button>
     <br>
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-    <p *ngIf="isLoading">Obteniendo ubicación y clima...</p>
+    <p *ngIf="isLoading">Consultando clima</p>
   </div>
 
   <ion-card class="ion-margin-top">
     <ion-card-content class="ion-text-center">
       <h2>Total de registros: <strong>{{ totalRegistros }}</strong></h2>
       <ion-button fill="outline" expand="block" (click)="irARegistros()" class="ion-margin-top">
-        Registros guardados
+        Ver registros 
       </ion-button>
     </ion-card-content>
   </ion-card>

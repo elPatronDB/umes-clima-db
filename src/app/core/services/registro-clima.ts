@@ -9,7 +9,7 @@ export interface RegistroClima {
   sensacionTermica: number;
   humedad: number;
   velocidadViento: number;
-  foto?: string; // URI
+  foto?: string;
 }
 
 @Injectable({

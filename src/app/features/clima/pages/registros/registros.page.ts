@@ -10,7 +10,7 @@ import { RegistroClimaService, RegistroClima } from 'src/app/core/services/regis
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { RouterLink } from '@angular/router';
 
-@Component({
+@Component({       
   selector: 'app-registros',
   templateUrl: './registros.page.html',
   styleUrls: ['./registros.page.scss'],
@@ -39,25 +39,23 @@ export class RegistrosPage implements OnInit {
   }
 
   cargarRegistros() {
-    // Para asegurar que los registros se actualicen al navegar
     this.registros = this.registroService.getRegistros();
   }
 
   async tomarFotografia(registro: RegistroClima) {
-    // Alert to ask if user wants to save to gallery
     const alert = await this.alertController.create({
       header: 'Guardar Fotografía',
-      message: '¿Deseas guardar esta fotografía también en la galería de tu dispositivo?',
+      message: '¿Deseas guardar esta fotografía en la galería de tu dispositivo?',
       buttons: [
         {
-          text: 'No, solo en la app',
+          text: 'No',
           role: 'cancel',
           handler: () => {
             this.abrirCamara(registro, false);
           }
         },
         {
-          text: 'Sí, guardar en galería',
+          text: 'Sí',
           handler: () => {
             this.abrirCamara(registro, true);
           }
@@ -83,7 +81,6 @@ export class RegistrosPage implements OnInit {
       }
     } catch (e) {
       console.error('Error al tomar fotografía', e);
-      // Optional: mostrarMensaje('Error al tomar fotografía o cancelado');
     }
   }
 
